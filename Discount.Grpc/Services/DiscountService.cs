@@ -18,7 +18,7 @@ namespace Discount.Grpc.Services
             _mapper = mapper;
         }
 
-        public override async Task<CouponModel> Get(GetDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> Get(GetCouponRequest request, ServerCallContext context)
         {
             var coupon = await _repository.GetByProductName(request.ProductName);
 
@@ -30,7 +30,7 @@ namespace Discount.Grpc.Services
             return _mapper.Map<CouponModel>(coupon);
         }
 
-        public override async Task<CouponModel> Create(CreateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> Create(CreateCouponRequest request, ServerCallContext context)
         {
             var coupon = _mapper.Map<Coupon>(request.Coupon);
 
@@ -39,7 +39,7 @@ namespace Discount.Grpc.Services
             return _mapper.Map<CouponModel>(coupon);
         }
 
-        public override async Task<CouponModel> Update(UpdateDiscountRequest request, ServerCallContext context)
+        public override async Task<CouponModel> Update(UpdateCouponRequest request, ServerCallContext context)
         {
             var coupon = _mapper.Map<Coupon>(request.Coupon);
 
@@ -48,11 +48,11 @@ namespace Discount.Grpc.Services
             return _mapper.Map<CouponModel>(coupon);
         }
 
-        public override async Task<DeleteDiscountResponse> Delete(DeleteDiscountRequest request, ServerCallContext context)
+        public override async Task<DeleteCouponResponse> Delete(DeleteCouponRequest request, ServerCallContext context)
         {
             var deleted = await _repository.DeleteByProductName(request.ProductName);
 
-            return new DeleteDiscountResponse
+            return new DeleteCouponResponse
             {
                 Success = deleted
             };
